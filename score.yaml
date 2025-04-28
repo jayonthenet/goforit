@@ -1,0 +1,25 @@
+apiVersion: score.dev/v1b1
+metadata:
+  name: goforit
+
+service:
+  ports:
+    www:
+      port: 80
+      protocol: TCP
+      targetPort: 80
+
+containers:
+  goforit:
+    image: europe-west3-docker.pkg.dev/clemens-juette-gcp/goforit/goforit:latest
+
+resources:
+  dns:
+    type: dns
+  route:
+    type: route
+    params:
+      host: ${resources.dns.host}
+      port:
+        name: www
+      path: /
